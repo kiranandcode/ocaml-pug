@@ -1,0 +1,2 @@
+(executable (name pug)
+ (libraries pug cmdliner tyxml))
