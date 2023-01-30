@@ -1,4 +1,5 @@
 (library (name pug)
+ (public_name pug)
  (libraries angstrom tyxml tyxml.functor)
  (preprocess (pps sedlex.ppx ppx_deriving.show))
 )
