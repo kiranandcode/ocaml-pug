@@ -21,5 +21,5 @@ let rec compile_inner : bool -> Ast.t -> _ H.elt =
       (List.map (compile_inner String.(pre || value = "code" || value = "pre")) children)
   | Ast.Text txt -> H.txt (if pre then txt ^ "\n" else String.trim txt)
 
-let compile ast = compile false ast
+let compile ast = compile_inner false ast
 
