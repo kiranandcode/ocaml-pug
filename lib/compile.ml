@@ -12,11 +12,14 @@ let make_attributes ~attributes ~classes =
   | attributes, [] -> attributes
   | _, _ -> attributes @ [H.a_class classes]
 
-let rec compile: Ast.t -> _ H.elt = function
+let rec compile_inner : bool -> Ast.t -> _ H.elt =
+  fun pre ->
+  function
   | Ast.Nested ({value; classes; attributes}, children) ->
     H.Unsafe.node value
       ~a:(make_attributes ~classes ~attributes)
-      (List.map compile children)
-  | Ast.Text txt -> H.txt (String.trim txt)
+      (List.map (compile_inner String.(pre || value = "code" || value = "pre")) children)
+  | Ast.Text txt -> H.txt (if pre then txt "\n" else String.trim txt)
 
+let compile ast = compile false ast
 
