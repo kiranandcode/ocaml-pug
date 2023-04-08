@@ -19,7 +19,7 @@ let rec compile_inner : bool -> Ast.t -> _ H.elt =
     H.Unsafe.node value
       ~a:(make_attributes ~classes ~attributes)
       (List.map (compile_inner String.(pre || value = "code" || value = "pre")) children)
-  | Ast.Text txt -> H.txt (if pre then txt "\n" else String.trim txt)
+  | Ast.Text txt -> H.txt (if pre then txt ^ "\n" else String.trim txt)
 
 let compile ast = compile false ast
 
